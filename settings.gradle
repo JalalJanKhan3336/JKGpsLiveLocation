@@ -1,0 +1,3 @@
+include ':jkgmslocation'
+include ':app'
+rootProject.name = "GMSLocationUpdatesTest"
