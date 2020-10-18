@@ -35,7 +35,6 @@ public class MainActivity extends JKPMActivity {
         setContentView(mBinding.getRoot());
 
         mLocationManager = JKGMSLocationManager.getInstance();
-        mLocationManager.requestGpsLocationUpdates(this, R.drawable.ic_launcher_background);
 
         click();
         observeLiveLocation();
@@ -73,17 +72,11 @@ public class MainActivity extends JKPMActivity {
     }
 
     private void stopLiveLocationService() {
-        Intent intent = new Intent(MainActivity.this, JKGMSLocationService.class);
-        intent.setAction(JKGMSConstants.ACTION_STOP_JK_GMS_LOCATION_SERVICE);
-        stopService(intent);
+        mLocationManager.removeGpsLocationUpdates(this);
     }
 
     private void startLiveLocationService() {
-        if(isLocationEnabled()){
-
-        }else {
-
-        }
+        mLocationManager.requestGpsLocationUpdates(this, R.drawable.ic_launcher_background);
     }
 
     @Override
@@ -96,17 +89,6 @@ public class MainActivity extends JKPMActivity {
     protected void onPermissionsDenied() {
         Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
         showDenialBox();
-    }
-
-    // Check either location is enabled or not
-    public boolean isLocationEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            return lm.isLocationEnabled();
-        } else {
-            int mode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-            return  (mode != Settings.Secure.LOCATION_MODE_OFF);
-        }
     }
 
 }

@@ -39,7 +39,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class JKGMSLocationService extends Service {
-    private static final String TAG = "JKGMSLocationService";
 
     private LocationRequest mLocationRequest;
     private static LocationLiveUpdateCallback mLiveLocationCallback;
@@ -166,21 +165,6 @@ public class JKGMSLocationService extends Service {
         stopForeground(true);
         stopSelf();
     }
-
-/*
-    public boolean isLocationEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // This is new method provided in API 28
-            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            return lm.isLocationEnabled();
-        } else {
-            // This is Deprecated in API 28
-            int mode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-            return  (mode != Settings.Secure.LOCATION_MODE_OFF);
-
-        }
-    }
-*/
 
     public interface LocationLiveUpdateCallback {
         void onLiveLocationUpdated(Location location);
